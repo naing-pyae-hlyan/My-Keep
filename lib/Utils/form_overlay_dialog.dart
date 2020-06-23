@@ -29,7 +29,6 @@ Future<void> showFormOverlayDialog({
 }
 
 Widget _titleField(BuildContext context) {
-
   return TextFormField(
     decoration: InputDecoration(
       border: InputBorder.none,
@@ -46,41 +45,48 @@ Widget _bodyField(BuildContext context) {
 }
 
 Widget _bottomSheet(BuildContext context) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceAround,
-    children: <Widget>[
-      Icon(
-        Icons.notifications,
-        color: Colors.grey,
-      ),
-      Icon(
-        Icons.supervisor_account,
-        color: Colors.grey,
-      ),
-      Icon(
-        Icons.color_lens,
-        color: Colors.grey,
-      ),
-      Icon(
-        Icons.image,
-        color: Colors.grey,
-      ),
-      Icon(
-        Icons.archive,
-        color: Colors.grey,
-      ),
-      Icon(
-        Icons.more_vert,
-        color: Colors.grey,
-      ),
-      Icon(
-        Icons.undo,
-        color: Colors.grey,
-      ),
-      Icon(
-        Icons.redo,
-        color: Colors.grey,
-      ),
-    ],
+  return SingleChildScrollView(
+    scrollDirection: Axis.horizontal,
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: <Widget>[
+        IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.notifications,
+              color: Colors.grey,
+            )),
+        IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.supervisor_account,
+              color: Colors.grey,
+            )),
+        IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.color_lens,
+              color: Colors.grey,
+            )),
+        IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.image,
+              color: Colors.grey,
+            )),
+        IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.archive,
+              color: Colors.grey,
+            )),
+        IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.more_vert,
+              color: Colors.grey,
+            )),
+      ],
+    ),
   );
 }
