@@ -12,6 +12,7 @@ class _MainPageState extends State<MainPage> {
   bool _isPressed = true;
   Icon _icon = Icon(Icons.view_stream);
   int _gridCount = 2;
+  bool _onDelete = true;
 
   void _checkWidgetState() {
     if (_isPressed == true) {
@@ -22,6 +23,12 @@ class _MainPageState extends State<MainPage> {
       _gridCount = 2;
     }
     _isPressed = !_isPressed;
+  }
+
+  void _checkDelete() {
+    setState(() {
+      _onDelete = !_onDelete;
+    });
   }
 
   @override
@@ -54,12 +61,13 @@ class _MainPageState extends State<MainPage> {
 
   Widget _bod(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    final double itemHeight = (size.height - kToolbarHeight - 24) / (_gridCount == 1 ? 8 : 4);
+    final double itemHeight =
+        (size.height - kToolbarHeight - 24) / (_gridCount == 1 ? 8 : 4);
     final double itemWidth = size.width / 2;
 
     return Container(
       child: GridView.count(
-        reverse: true,
+          reverse: true,
           childAspectRatio: itemWidth / itemHeight,
           shrinkWrap: true,
           crossAxisCount: _gridCount,
@@ -87,25 +95,50 @@ class _MainPageState extends State<MainPage> {
 
   Widget _getKeepWidget(BuildContext context, KeepItemsModel keep) {
     return GestureDetector(
-      onTap: (){print('on Tap ${keep.title}');},
-      onLongPress: (){print('Long Press'); HapticFeedback.vibrate();},
+      onTap: () {
+        print('on Tap ${keep.title}');
+      },
+      onLongPress: () {
+        _checkDelete();
+        HapticFeedback.vibrate();
+      },
       child: Container(
-          padding: EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 4.0),
+          padding: EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
           margin: EdgeInsets.all(8.0),
           decoration: BoxDecoration(
               color: Colors.black26, borderRadius: BorderRadius.circular(16)),
           child: Column(
             children: <Widget>[
-              Text(
-                '${keep.title}',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: 4.0,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    '${keep.title}',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Visibility(
+                    child: IconButton(
+                      onPressed: () {
+                        print('delete');
+                      },
+                      icon: Icon(
+                        Icons.remove_circle,
+                        color: Colors.red[900],
+                      ),
+                    ),
+                    visible: _onDelete ? false : true,
+                    maintainState: true,
+                    maintainSize: true,
+                    maintainAnimation: true,
+                  )
+                ],
               ),
               Expanded(
-                child:
-                Text('${keep.body}', overflow: TextOverflow.ellipsis, maxLines: 8,),
+                child: Text(
+                  '${keep.body}',
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 6,
+                ),
               ),
             ],
           )),
