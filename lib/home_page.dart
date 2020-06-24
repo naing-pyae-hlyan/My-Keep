@@ -1,19 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:todo/Interface/keep_inteface.dart';
 import 'package:todo/Models/keep_items_model.dart';
 import 'package:todo/Utils/form_overlay_dialog.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
+import 'package:todo/Utils/overlay_form.dart';
 
 class MainPage extends StatefulWidget {
   @override
   _MainPageState createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _MainPageState extends State<MainPage> implements ColorCallback {
   bool _isPressed = true;
   Icon _icon = Icon(Icons.view_stream);
   int _gridCount = 2;
   bool _onDelete = true;
+  Color _paintColor = Colors.white;
+  final String _title = "";
+  final String _content = "";
+
+  @override
+  paintColor(Color color) {
+    setState(() {
+      _paintColor = color;
+      print(color);
+    });
+  }
 
   void _checkWidgetState() {
     if (_isPressed == true) {
@@ -52,7 +65,9 @@ class _MainPageState extends State<MainPage> {
       body: _bod(context),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          showFormOverlayDialog(context: context);
+//          Navigator.push(
+//              context, MaterialPageRoute(builder: (context) => OverlayForm()));
+          showFormOverlayDialog(context: context, colorCallback: this,);
         },
         tooltip: 'New Keep',
         child: Icon(Icons.add),
@@ -107,7 +122,8 @@ class _MainPageState extends State<MainPage> {
           padding: EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
           margin: EdgeInsets.all(8.0),
           decoration: BoxDecoration(
-              color: Colors.black26, borderRadius: BorderRadius.circular(16)),
+              color: keep.color,
+              borderRadius: BorderRadius.circular(16)),
           child: Column(
             children: <Widget>[
               Row(

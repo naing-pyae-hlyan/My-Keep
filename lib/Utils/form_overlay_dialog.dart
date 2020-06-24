@@ -4,25 +4,36 @@ import 'package:todo/Widgets/common_widgets.dart';
 
 Future<void> showFormOverlayDialog({
   @required BuildContext context,
-  KeepCallack callback,
+  KeepCallback callback,
+  ColorCallback colorCallback,
 }) async {
   return showDialog(
       context: context,
-      barrierDismissible: true,
+      barrierDismissible: false,
       builder: (context) {
         return AlertDialog(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
           title: _titleField(context),
           content: _bodyField(context),
           actions: <Widget>[
-            bottomIconSheet(context),
-            FlatButton(
-              child: Text('Save'),
-              onPressed: () {
-                callback.keepTitle("");
-                Navigator.of(context).pop();
-              },
+            bottomIconSheet(context: context, colorCallback: colorCallback),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                FlatButton(
+                  child: Text('Cancel'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                FlatButton(
+                  child: Text('Save'),
+                  onPressed: () {
+                    callback.keepTitle("");
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
             )
           ],
         );

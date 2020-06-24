@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-class KeepCallack{
+
+class KeepCallback{
   keepTitle(String title){}
   keepContent(String content){}
+}
+
+class ColorCallback{
+  paintColor(Color color){}
 }

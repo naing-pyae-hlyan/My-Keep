@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
+import 'package:todo/Interface/keep_inteface.dart';
 
-Widget bottomIconSheet(BuildContext context) {
+Widget bottomIconSheet({BuildContext context, ColorCallback colorCallback}) {
   return SingleChildScrollView(
     scrollDirection: Axis.horizontal,
     child: Row(
@@ -21,7 +22,7 @@ Widget bottomIconSheet(BuildContext context) {
             )),
         IconButton(
             onPressed: () {
-              _colorPicker(context);
+              _colorPicker(context, colorCallback);
             },
             icon: Icon(
               Icons.color_lens,
@@ -50,21 +51,26 @@ Widget bottomIconSheet(BuildContext context) {
   );
 }
 
-Future<void> _colorPicker(BuildContext context) async {
+Future<void> _colorPicker(BuildContext context, ColorCallback callback) async {
   return showDialog(
       context: context,
       barrierDismissible: true,
       builder: (context) {
         return AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
           content: MaterialColorPicker(
             shrinkWrap: true,
-            onColorChange: (Color color) {},
-            selectedColor: Colors.red,
+            onMainColorChange: (Color color) {
+              callback.paintColor(color);
+            },
+            onColorChange: (Color color){
+              callback.paintColor(color);
+            },
           ),
           actions: <Widget>[
             FlatButton(
-              child: Text('Ok'),
+              child: Text('Paint'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
