@@ -15,7 +15,7 @@ class _MainPageState extends State<MainPage> {
   Icon _icon = Icon(Icons.view_stream);
   int _gridCount = 2;
 
-  void _checkState() {
+  void _checkWidgetState() {
     if (_isPressed == true) {
       _icon = Icon(Icons.view_quilt);
       _gridCount = 1;
@@ -36,7 +36,7 @@ class _MainPageState extends State<MainPage> {
           IconButton(
             onPressed: () {
               setState(() {
-                _checkState();
+                _checkWidgetState();
               });
             },
             icon: _icon,
@@ -69,21 +69,6 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-//  Widget _bo(BuildContext context) {
-//    return StaggeredGridView.count(
-//      crossAxisCount: 4,
-//      mainAxisSpacing: 4.0,
-//      crossAxisSpacing: 4.0,
-//      children: _getKeepWidgetList(
-//        context,
-//        _generateKeep(12),
-//      ),
-//      staggeredTiles: _getKeepWidgetList(context, _generateKeep(12))
-//          .map<StaggeredTile>((_) => StaggeredTile.fit(_gridCount))
-//          .toList(),
-//    );
-//  }
-
   List<KeepItemsModel> _generateKeep(int number) {
     return List.generate(number, (int index) {
       return KeepItemsModel(
@@ -92,27 +77,6 @@ class _MainPageState extends State<MainPage> {
               'I was very ambitious by all means My true desire was winning forever The top of the rank was in all my dreams Wanting to be the best, the most clever.I was very ambitious by all means My true desire was winning forever The top of the rank was in all my dreams Wanting to be the best, the most clever.');
     });
   }
-//
-//  Widget _bodyGridView(BuildContext context) {
-//    var size = MediaQuery.of(context).size;
-//    final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
-//    final double itemWidth = size.width / 2;
-//
-//    return CustomScrollView(
-//      primary: false,
-//      slivers: <Widget>[
-//        SliverPadding(
-//          padding: const EdgeInsets.all(20),
-//          sliver: SliverGrid.count(
-//              crossAxisSpacing: 10,
-////              mainAxisSpacing: 2,
-//              crossAxisCount: _gridCount,
-//              childAspectRatio: 1,
-//              children: _getKeepWidgetList(context, _generateKeep(20))),
-//        )
-//      ],
-//    );
-//  }
 
   List<Widget> _getKeepWidgetList(
       BuildContext context, List<KeepItemsModel> items) {
