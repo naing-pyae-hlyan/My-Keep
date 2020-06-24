@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 
 Widget bottomIconSheet(BuildContext context) {
   return SingleChildScrollView(
@@ -20,7 +20,9 @@ Widget bottomIconSheet(BuildContext context) {
               color: Colors.grey,
             )),
         IconButton(
-            onPressed: () {},
+            onPressed: () {
+              _colorPicker(context);
+            },
             icon: Icon(
               Icons.color_lens,
               color: Colors.grey,
@@ -46,4 +48,28 @@ Widget bottomIconSheet(BuildContext context) {
       ],
     ),
   );
+}
+
+Future<void> _colorPicker(BuildContext context) async {
+  return showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
+          content: MaterialColorPicker(
+            shrinkWrap: true,
+            onColorChange: (Color color) {},
+            selectedColor: Colors.red,
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Ok'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      });
 }
