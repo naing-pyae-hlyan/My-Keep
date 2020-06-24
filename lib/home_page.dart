@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:todo/Models/keep_items_model.dart';
-import 'package:todo/Providers/change_widgets_provider.dart';
 import 'package:todo/Utils/form_overlay_dialog.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:flutter/services.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -56,7 +54,7 @@ class _MainPageState extends State<MainPage> {
 
   Widget _bod(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    final double itemHeight = (size.height - kToolbarHeight - 24) / (_gridCount == 1 ? 8 : 2);
+    final double itemHeight = (size.height - kToolbarHeight - 24) / (_gridCount == 1 ? 8 : 4);
     final double itemWidth = size.width / 2;
 
     return Container(
@@ -88,22 +86,29 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget _getKeepWidget(BuildContext context, KeepItemsModel keep) {
-    return Container(
-        padding: EdgeInsets.all(16.0),
-        margin: EdgeInsets.all(8.0),
-        decoration: BoxDecoration(
-            color: Colors.black26, borderRadius: BorderRadius.circular(16)),
-        child: Column(
-          children: <Widget>[
-            Text(
-              '${keep.title}',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            SizedBox(
-              height: 12.0,
-            ),
-            Text('${keep.body}'),
-          ],
-        ));
+    return GestureDetector(
+      onTap: (){print('on Tap ${keep.title}');},
+      onLongPress: (){print('Long Press'); HapticFeedback.vibrate();},
+      child: Container(
+          padding: EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 4.0),
+          margin: EdgeInsets.all(8.0),
+          decoration: BoxDecoration(
+              color: Colors.black26, borderRadius: BorderRadius.circular(16)),
+          child: Column(
+            children: <Widget>[
+              Text(
+                '${keep.title}',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 4.0,
+              ),
+              Expanded(
+                child:
+                Text('${keep.body}', overflow: TextOverflow.ellipsis, maxLines: 8,),
+              ),
+            ],
+          )),
+    );
   }
 }
