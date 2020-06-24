@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo/Interface/keep_inteface.dart';
+import 'package:todo/Widgets/common_widgets.dart';
 
 Future<void> showFormOverlayDialog({
   @required BuildContext context,
@@ -15,7 +16,7 @@ Future<void> showFormOverlayDialog({
           title: _titleField(context),
           content: _bodyField(context),
           actions: <Widget>[
-            _bottomSheet(context),
+            bottomIconSheet(context),
             FlatButton(
               child: Text('Save'),
               onPressed: () {
@@ -41,52 +42,5 @@ Widget _bodyField(BuildContext context) {
   return TextFormField(
     maxLines: null,
     decoration: InputDecoration(hintText: 'Take a note...'),
-  );
-}
-
-Widget _bottomSheet(BuildContext context) {
-  return SingleChildScrollView(
-    scrollDirection: Axis.horizontal,
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: <Widget>[
-        IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.notifications,
-              color: Colors.grey,
-            )),
-        IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.supervisor_account,
-              color: Colors.grey,
-            )),
-        IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.color_lens,
-              color: Colors.grey,
-            )),
-        IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.image,
-              color: Colors.grey,
-            )),
-        IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.archive,
-              color: Colors.grey,
-            )),
-        IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.more_vert,
-              color: Colors.grey,
-            )),
-      ],
-    ),
   );
 }
